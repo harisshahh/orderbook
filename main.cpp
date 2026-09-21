@@ -17,6 +17,7 @@ int main() {
     book.addOrder(thirdBuy);
     book.addOrder(firstSell);
 
+    book.printBook();
 
     return 0;
 }

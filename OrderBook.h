@@ -17,4 +17,29 @@ public:
             asks[order.price].push_back(order);
         }
     }
+    void printBook() const {
+        std::cout << "==========OrderBook==========" << "\n";
+
+        std::cout << "\nBIDS: \n";
+        for (const auto& level: bids) {
+            std::cout << "Price: " << level.first << " | Orders: ";
+            for (const auto& order: level.second) {
+                std::cout << "[ID: " << order.id
+                << ", Qty: " << order.quantity
+                << "]";
+            }
+            std::cout << "\n";
+        }
+        std::cout << "\nASKS: \n";
+        for (const auto& level: asks) {
+            std::cout << "Price: " << level.first << " | Orders: ";
+            for (const auto& order: level.second) {
+                std::cout << "[ID: " << order.id
+                << ", Qty: " << order.quantity
+                << "]";
+            }
+            std::cout << "\n";
+        }
+        std::cout << "====================\n";
+    }
 };
