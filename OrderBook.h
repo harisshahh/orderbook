@@ -77,6 +77,33 @@ public:
             asks[incoming.price].push_back(incoming);
         }
     }
+    bool cancelOrder(uint64_t orderId) {
+        for (auto levelIt = bids.begin(); levelIt != bids.end(); ++levelIt) {
+            auto& orders = levelIt->second;
+            for (auto orderIt = orders.begin(); orderIt != orders.end(); ++orderIt) {
+                if (orderIt->id == orderId) {
+                    orders.erase(orderIt);
+                    if (orders.empty()) {
+                        bids.erase(levelIt);
+                    }
+                    return true;
+                }
+            }
+        }
+        for (auto levelIt = asks.begin(); levelIt != asks.end(); ++levelIt) {
+            auto& orders = levelIt->second;
+            for (auto orderIt = orders.begin(); orderIt != orders.end(); ++orderIt) {
+                if (orderIt->id == orderId) {
+                    orders.erase(orderIt);
+                    if (orders.empty()) {
+                        asks.erase(levelIt);
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     void printBook() const {
         std::cout << "==========OrderBook==========" << "\n";
 
